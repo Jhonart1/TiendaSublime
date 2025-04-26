@@ -22,7 +22,7 @@ fun CatalogCardItem(card: CatalogCard) {
             .width(200.dp)
             .padding(vertical = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (card.isSpecial) AppColors.CoralSuave else AppColors.AmarilloCalido
+            containerColor = if (card.isSpecial) AppColors.AmarilloCalido else AppColors.AmarilloCalido
         )
     ) {
         Column(

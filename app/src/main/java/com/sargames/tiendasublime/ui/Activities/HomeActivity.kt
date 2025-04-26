@@ -1,5 +1,6 @@
 package com.sargames.tiendasublime.ui.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,18 +21,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.sargames.tiendasublime.R
 import com.sargames.tiendasublime.data.models.Product
 import com.sargames.tiendasublime.data.models.sampleProducts
 import com.sargames.tiendasublime.data.models.sampleCatalogCards
 import com.sargames.tiendasublime.data.models.sampleOfferCards
+import com.sargames.tiendasublime.data.models.sampleProductCards
 import com.sargames.tiendasublime.ui.components.CatalogCardItem
 import com.sargames.tiendasublime.ui.components.OfferCardItem
+import com.sargames.tiendasublime.ui.components.ProductCardItem
 import com.sargames.tiendasublime.ui.theme.AppColors
 import com.sargames.tiendasublime.ui.theme.TiendaSublimeTheme
 import com.sargames.tiendasublime.ui.theme.AppConstants
+import com.sargames.tiendasublime.ui.components.BottomNavigationBar
+import com.sargames.tiendasublime.ui.navigation.NavigationRoutes
+import com.sargames.tiendasublime.ui.navigation.navigationItems
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +60,9 @@ class HomeActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen() {
+    //Estado para la barra de navegacion
     var selectedTab by remember { mutableStateOf(0) }
+    val context = LocalContext.current
     
     Box(
         modifier = Modifier
@@ -78,9 +89,22 @@ fun HomeScreen() {
         }
         
         // Barra de navegación fija en la parte inferior
-        BottomNavigation(
+        BottomNavigationBar(
             selectedTab = selectedTab,
-            onTabSelected = { newTab -> selectedTab = newTab },
+            onTabSelected = { newTab -> 
+                selectedTab = newTab
+                val intent = when (navigationItems[newTab].route) {
+                    NavigationRoutes.HOME -> Intent(context, HomeActivity::class.java)
+                    NavigationRoutes.SEARCH -> Intent(context, SearchActivity::class.java)
+                    NavigationRoutes.CART -> Intent(context, CartActivity::class.java)
+                    NavigationRoutes.PROFILE -> Intent(context, ProfileActivity::class.java)
+                    else -> null
+                }
+                intent?.let {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    context.startActivity(it)
+                }
+            },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
@@ -98,12 +122,32 @@ fun TopBar() {
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        
-        Text(
-            text = AppConstants.Home.HOME_TITLE,
-            style = MaterialTheme.typography.titleLarge,
-            color = AppColors.CoralSuave
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "Logo de la aplicación",
+                modifier = Modifier.size(32.dp)
+            )
+            
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = AppConstants.Home.HOME_TITLE,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = AppColors.CoralSuave
+                )
+            }
+        }
     }
 }
 
@@ -122,7 +166,7 @@ fun SearchBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            placeholder = { Text("Buscar productos...") },
+            placeholder = { Text(AppConstants.Home.SEARCH_HINT) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -151,13 +195,28 @@ fun MainContent() {
             .padding(16.dp)
     ) {
         // Sección de Ofertas
-        Text(
-            text = "Ofertas",
-            style = MaterialTheme.typography.titleMedium,
-            color = AppColors.CoralSuave
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Ofertas",
+                style = MaterialTheme.typography.titleMedium,
+                color = AppColors.CoralSuave
+            )
+            
+            TextButton(
+                onClick = { /* TODO: navegación a ver más ofertas Proximamente*/ }
+            ) {
+                Text(
+                    text = "Ver más",
+                    color = AppColors.CoralSuave
+                )
+            }
+        }
         
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -170,13 +229,28 @@ fun MainContent() {
         Spacer(modifier = Modifier.height(24.dp))
         
         // Sección de Catálogo
-        Text(
-            text = "Diseños",
-            style = MaterialTheme.typography.titleMedium,
-            color = AppColors.CoralSuave
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Diseños",
+                style = MaterialTheme.typography.titleMedium,
+                color = AppColors.CoralSuave
+            )
+            
+            TextButton(
+                onClick = { /* TODO:  navegación a ver más diseños proximamente*/ }
+            ) {
+                Text(
+                    text = "Ver más",
+                    color = AppColors.CoralSuave
+                )
+            }
+        }
         
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -188,20 +262,35 @@ fun MainContent() {
         
         Spacer(modifier = Modifier.height(24.dp))
         
-        // Sección de Días Especiales
-        Text(
-            text = "Días Especiales",
-            style = MaterialTheme.typography.titleMedium,
-            color = AppColors.CoralSuave
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
+        // Sección de Tipos de Productos
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Tipos de Productos",
+                style = MaterialTheme.typography.titleMedium,
+                color = AppColors.CoralSuave
+            )
+            
+            TextButton(
+                onClick = { /* TODO:  navegación a ver más tipos de productos proximamente */ }
+            ) {
+                Text(
+                    text = "Ver más",
+                    color = AppColors.CoralSuave
+                )
+            }
+        }
         
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(sampleCatalogCards.filter { it.isSpecial }) { special ->
-                CatalogCardItem(special)
+            items(sampleProductCards) { product ->
+                ProductCardItem(product)
             }
         }
     }
@@ -259,70 +348,5 @@ fun ProductCardHorizontal(product: Product) {
                 color = AppColors.CoralSuave
             )
         }
-    }
-}
-
-//barra de navegacion con sus iconos y texto
-@Composable
-fun BottomNavigation(
-    selectedTab: Int,
-    onTabSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    NavigationBar(
-        modifier = modifier
-            .background(Color.White)
-            .height(80.dp),
-        containerColor = Color.White,
-        tonalElevation = 8.dp
-    ) {
-        NavigationBarItem(
-            selected = selectedTab == 0,
-            onClick = { onTabSelected(0) },
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-            label = { Text("Home") },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = AppColors.CoralSuave,
-                selectedTextColor = AppColors.CoralSuave,
-                unselectedIconColor = AppColors.Gris,
-                unselectedTextColor = AppColors.Gris
-            )
-        )
-        NavigationBarItem(
-            selected = selectedTab == 1,
-            onClick = { onTabSelected(1) },
-            icon = { Icon(Icons.Default.Search, contentDescription = "Buscar") },
-            label = { Text("Buscar") },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = AppColors.CoralSuave,
-                selectedTextColor = AppColors.CoralSuave,
-                unselectedIconColor = AppColors.Gris,
-                unselectedTextColor = AppColors.Gris
-            )
-        )
-        NavigationBarItem(
-            selected = selectedTab == 2,
-            onClick = { onTabSelected(2) },
-            icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Carrito") },
-            label = { Text("Carrito") },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = AppColors.CoralSuave,
-                selectedTextColor = AppColors.CoralSuave,
-                unselectedIconColor = AppColors.Gris,
-                unselectedTextColor = AppColors.Gris
-            )
-        )
-        NavigationBarItem(
-            selected = selectedTab == 3,
-            onClick = { onTabSelected(3) },
-            icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
-            label = { Text("Perfil") },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = AppColors.CoralSuave,
-                selectedTextColor = AppColors.CoralSuave,
-                unselectedIconColor = AppColors.Gris,
-                unselectedTextColor = AppColors.Gris
-            )
-        )
     }
 } 

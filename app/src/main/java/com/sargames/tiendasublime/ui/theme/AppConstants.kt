@@ -6,7 +6,7 @@ object AppConstants {
         const val APP_NAME = "Tienda"
         const val APP_NAME2 = "Sublime"
         const val APP_VERSION = "1.0.0"
-        const val APP_LOGO = "app_logo"
+        const val APP_LOGO = "ic_logo_s"
     }
 
     // Constantes para SplashActivity
@@ -18,15 +18,22 @@ object AppConstants {
         const val LOADING_MESSAGE = "Calentando las Maquinas..."
     }
 
-    // Constantes para HomeActivity
+    // Constantes General
     object Home {
         const val HOME_TITLE = "Inicio"
         const val SEARCH_HINT = "Buscar productos..."
+        const val OFFERS_TITLE = "Ofertas"
+        const val SPECIAL_DAYS_TITLE = "Días Especiales"
         const val CART_TITLE = "Carrito"
         const val PROFILE_TITLE = "Perfil"
+        const val FILTERS_TITLE = "Filtros"
+        const val CATEGORY_TITLE = "Categoría"
+        const val CATEGORIES_TITLE = "Categorías"
+        const val PRICE_RANGE_TITLE = "Rango de Precios"
+        const val SORT_BY_TITLE = "Ordenar por"
     }
 
-    // Constantes para Productos
+    // Constantes para Productos ejemplos
     object Products {
         const val PRODUCTS_TITLE = "Productos"
         const val ADD_TO_CART = "Agregar al carrito"
@@ -34,7 +41,7 @@ object AppConstants {
         const val PRICE_FORMAT = "$%.2f"
     }
 
-    // Constantes para Carrito
+    // Constantes para Carrito ejemplos 
     object Cart {
         const val CART_EMPTY = "Tu carrito está vacío"
         const val CHECKOUT = "Proceder al pago"
@@ -42,7 +49,7 @@ object AppConstants {
         const val UPDATE_QUANTITY = "Actualizar cantidad"
     }
 
-    // Constantes para Perfil
+    // Constantes para Perfil ejemplos
     object Profile {
         const val EDIT_PROFILE = "Editar perfil"
         const val MY_ORDERS = "Mis pedidos"
@@ -50,7 +57,7 @@ object AppConstants {
         const val LOGOUT = "Cerrar sesión"
     }
 
-    // Constantes para Autenticación
+    // Constantes para Autenticación ejemplos
     object Auth {
         const val LOGIN = "Iniciar sesión"
         const val REGISTER = "Registrarse"
@@ -59,7 +66,7 @@ object AppConstants {
         const val PASSWORD_HINT = "Contraseña"
     }
 
-    // Constantes para Mensajes
+    // Constantes para Mensajes ejemplos
     object Messages {
         const val SUCCESS = "Operación exitosa"
         const val ERROR = "Ha ocurrido un error"

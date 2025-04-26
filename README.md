@@ -10,6 +10,10 @@ Aplicación de comercio electrónico desarrollada en Kotlin con Jetpack Compose,
   - Barra de búsqueda
   - Carruseles de productos
   - Navegación inferior
+- **Cart**: Pantalla de  con múltiples secciones
+  - Barra de búsqueda
+  - Carruseles de productos
+  - Navegación inferior
 
 ### Componentes
 - **Tarjetas de Productos**: Muestra información detallada de productos

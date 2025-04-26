@@ -10,7 +10,7 @@ interface CardItem {
 }
 
 /**
- * Modelo para tarjetas de catálogo y días especiales
+ * Modelo para tarjetas de catálogo
  */
 data class CatalogCard(
     override val id: Int,
@@ -32,6 +32,15 @@ data class OfferCard(
     val discountPrice: Double,
     val discountPercentage: Int,
     val validUntil: String
+) : CardItem
+
+/**
+ * Modelo para tarjetas de productos
+ */
+data class ProductCard(
+    override val id: Int,
+    override val title: String,
+    override val imageUrl: String,
 ) : CardItem
 
 /**
@@ -71,8 +80,8 @@ val sampleOfferCards = listOf(
         id = 1,
         title = "Oferta Especial",
         imageUrl = "https://acortar.link/GBepD7",
-        originalPrice = 99.99,
-        discountPrice = 49.99,
+        originalPrice = 10000.0,
+        discountPrice = 5000.0,
         discountPercentage = 50,
         validUntil = "2024-12-31"
     ),
@@ -80,8 +89,8 @@ val sampleOfferCards = listOf(
         id = 2,
         title = "Descuento Flash",
         imageUrl = "https://acortar.link/GBepD7",
-        originalPrice = 79.99,
-        discountPrice = 39.99,
+        originalPrice = 10000.0,
+        discountPrice = 5000.0,
         discountPercentage = 50,
         validUntil = "2024-12-31"
     ),
@@ -89,9 +98,32 @@ val sampleOfferCards = listOf(
         id = 3,
         title = "Oferta del Día",
         imageUrl = "https://acortar.link/GBepD7",
-        originalPrice = 59.99,
-        discountPrice = 29.99,
-        discountPercentage = 50,
+        originalPrice = 15000.0,
+        discountPrice = 10000.0,
+        discountPercentage = 33,
         validUntil = "2024-12-31"
     )
-) 
+)
+
+/**
+ * Lista de ejemplo de tarjetas de productos
+ */
+
+val sampleProductCards = listOf(
+
+    ProductCard(
+        id = 1,
+        title = "Tipo1",
+        imageUrl = "https://acortar.link/GBepD7",
+    ),
+    ProductCard(
+        id = 2,
+        title = "Tipo2",
+        imageUrl = "https://acortar.link/GBepD7",
+    ),
+    ProductCard(
+        id = 3,
+        title = "Tipo3",
+        imageUrl = "https://acortar.link/GBepD7",
+    ),
+)

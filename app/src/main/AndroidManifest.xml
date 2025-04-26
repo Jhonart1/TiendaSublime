@@ -30,8 +30,11 @@
 
         <activity
             android:name=".ui.Activities.HomeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TiendaSublime">
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -39,6 +42,18 @@
             android:exported="false"
             android:theme="@style/Theme.TiendaSublime">
         </activity>
+
+        <activity
+            android:name=".ui.Activities.SearchActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.Activities.CartActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.Activities.ProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
